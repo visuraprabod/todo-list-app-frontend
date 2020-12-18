@@ -4,7 +4,7 @@
   padding-bottom: 15px;
   border-bottom: 1px solid lightgrey;
 
-  span{
+  span.check{
     border-radius: 50%;
     margin-right: 10px;
     display: inline-flex;
@@ -18,7 +18,7 @@
   &:hover{
     color: red;
 
-    span svg{
+    span.check svg{
       visibility: visible;
     }
   }
@@ -31,4 +31,19 @@
 .completed{
   text-decoration: line-through;
   color: green;
+}
+
+.options{
+  margin-top: 5px;
+  float: right;
+
+  .option-item{
+    padding: 0 5px;
+    display: inline-flex;
+    padding: 2px;
+
+    &:hover{
+      background: lightgray;
+    }
+  }
 }
