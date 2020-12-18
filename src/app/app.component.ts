@@ -8,7 +8,7 @@ import {TaskService} from './service/task.service';
 })
 export class AppComponent {
 
-  constructor(private taskService: TaskService) {
+  constructor(public taskService: TaskService) {
 
   }
 }
