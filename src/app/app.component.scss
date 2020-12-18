@@ -1,0 +1,66 @@
+.section {
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 10px;
+}
+
+.task {
+  cursor: pointer;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid lightgrey;
+
+  span{
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline-flex;
+    position: relative;
+    top: 5px;
+    border: 1px solid lightgrey;
+
+    svg{
+      visibility: hidden;
+    }
+  }
+
+  font-size: 14px;
+
+  &:hover{
+    color: red;
+
+    span svg{
+      visibility: visible;
+    }
+  }
+}
+
+.lbl-add-task {
+  color: gray;
+  border-bottom: none;
+
+  span{
+    margin-left: 5px;
+    padding: 2px;
+    display: inline-flex;
+    border: none;
+    position: static;
+
+    svg{
+      visibility: visible;
+    }
+
+  }
+
+  &:hover span{
+    background-color: red;
+    color: white;
+  }
+}
+
+.completed{
+  text-decoration: line-through;
+  color: green;
+
+  svg{
+    visibility: visible !important;
+  }
+}
