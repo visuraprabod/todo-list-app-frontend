@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {TaskService} from './service/task.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,5 @@ import {TaskService} from './service/task.service';
 })
 export class AppComponent {
 
-  constructor(public taskService: TaskService) {
 
-  }
 }

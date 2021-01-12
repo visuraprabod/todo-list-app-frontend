@@ -3,12 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {TaskService} from './service/task.service';
-import { TaskItemComponent } from './task-item/task-item.component';
+import { TaskItemComponent } from './view/task-item/task-item.component';
+import { MainComponent } from './view/main/main.component';
+import { WelcomeComponent } from './view/welcome/welcome.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskItemComponent
+    TaskItemComponent,
+    MainComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule
