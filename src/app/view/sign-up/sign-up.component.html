@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>To-do list App</h1>
+  <p>
+    Already a user?</p> <br>
+  <div class="form-group">
+    <label for="txt-username">Username</label>
+    <input #elm #usernameModel="ngModel" [(ngModel)]="username" id="txt-username" type="text" placeholder="Enter Username">
+    <div>{{elm.classList.toString()}}</div>
+  </div>
+  <div class="form-group">
+    <label for="txt-password">Enter password</label>
+    <input #passwordModel="ngModel" [(ngModel)]="password" id="txt-password"type="password" placeholder="Enter Password">
+  </div>
+  <div class="form-group">
+    <label for="txt-confirm-password">Retype password</label>
+    <input #confirmModel="ngModel" [(ngModel)]="confirmPassword" id="txt-confirm-password"type="password" placeholder="Enter Password again">
+  </div>
+  <div class="form-group">
+    <button [disabled]="isValidate()" (click)="createAccount()">Create Account</button>
+  </div>
+
+</div>
+
