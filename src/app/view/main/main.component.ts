@@ -13,10 +13,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class MainComponent implements OnInit {
 
-  taskList: Array<Task> = [];
+  // taskList: Array<Task> = [];
   Status = Status;
   // }
   visibleTaskEditor = false;
+  currentTask: Task | null = null;
 
   constructor(public taskService: TaskService, private router: Router, private sanckBar: MatSnackBar) {
 
@@ -26,7 +27,8 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.getAllTasks().subscribe(list => {
-      this.taskList = list;
+      // this.taskList = list;
+      this.taskService.taskList = list;
 
 
     }, error => {
@@ -41,10 +43,19 @@ export class MainComponent implements OnInit {
 
   }
 
-  addNewTask(taskDescription: any): void {
-    // console.log(taskDescription);
+  addNewTask(object: any): void {
+    if (object.isNew) {
+      this.addNew(object.txt);
+    } else {
+      this.update(object.txt);
+    }
+
+  }
+
+  addNew(taskDescription: any): void {
     this.taskService.saveTask(taskDescription).subscribe(task => {
-      this.taskList.push(task);
+      // this.taskList.push(task);
+      this.taskService.taskList.push(task);
       this.visibleTaskEditor = false;
     }, error => {
       if (error instanceof HttpErrorResponse) {
@@ -55,5 +66,24 @@ export class MainComponent implements OnInit {
       }
     });
 
+  }
+
+  editTask(task: Task): void {
+    this.currentTask = task;
+    this.visibleTaskEditor = true;
+  }
+
+  update(taskDescription: any): void {
+    this.taskService.updateTask(this.currentTask).subscribe(value => {
+      this.visibleTaskEditor = false;
+      this.currentTask = null;
+    }, error => {
+      if (error instanceof HttpErrorResponse) {
+        this.sanckBar.open('Something went wrong! Please try again', 'Dismiss');
+      } else {
+        // if Username is missing or token is expire
+        this.router.navigateByUrl('/sign-in');
+      }
+    });
   }
 }

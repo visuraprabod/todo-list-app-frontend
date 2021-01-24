@@ -1,8 +1,9 @@
 <h1>To-do List</h1>
 <a (click)="signOut()">Sign Out</a>
 <section>
-  <ng-container *ngFor="let task of taskList">
-    <app-task-item *ngIf="Status.NOT_COMPLETED===task.status" [task]="task"></app-task-item>
+<!--  <ng-container *ngFor="let task of taskList">-->
+  <ng-container *ngFor="let task of taskService.taskList">
+    <app-task-item (edit)="editTask($event)" *ngIf="Status.NOT_COMPLETED===task.status" [task]="task"></app-task-item>
   </ng-container>
   <div class="task lbl-add-task" *ngIf="!visibleTaskEditor" (click)="visibleTaskEditor=true">
   <span>
@@ -14,12 +15,12 @@
   </span>
     Add Task
   </div>
-  <app-task-editor *ngIf="visibleTaskEditor" (update)="addNewTask($event)" (cancel)="visibleTaskEditor=false"></app-task-editor>
+  <app-task-editor [(taskText)]="(currentTask==null)?'':currentTask.text" *ngIf="visibleTaskEditor" [newTask]="currentTask==null" (update)="addNewTask($event)" (cancel)="visibleTaskEditor=false; currentTask=null"></app-task-editor>
 </section>
 
 <h3 class="section">Completed Tasks</h3>
 <section>
-  <ng-container *ngFor="let task of taskList">
+  <ng-container *ngFor="let task of taskService.taskList">
     <app-task-item *ngIf="Status.COMPLETED===task.status" [task]="task"></app-task-item>
   </ng-container>
 </section>

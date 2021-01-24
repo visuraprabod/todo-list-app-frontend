@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-task-editor',
@@ -14,6 +14,14 @@ export class TaskEditorComponent implements OnInit, AfterViewInit {
 
   @ViewChild('txt')
   txt!: ElementRef;
+  @Input()
+  taskText!: string;
+
+  @Input()
+  newTask = true;
+
+  @Output()
+  taskTextChange = new EventEmitter();
 
   constructor() {
 
@@ -29,4 +37,7 @@ export class TaskEditorComponent implements OnInit, AfterViewInit {
     (this.txt.nativeElement as HTMLInputElement).focus();
   }
 
+  updateTask(): void {
+    this.update.emit({txt: this.txt.nativeElement.value, isNew: this.newTask});
+  }
 }

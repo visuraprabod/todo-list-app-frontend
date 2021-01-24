@@ -45,4 +45,27 @@ export class TaskService {
   }
 
 
+  updateTask(currentTask: Task | null): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const uname = sessionStorage.getItem('uname') as string;
+    if (token === null || uname === null) {
+      return throwError('Invalid Username or Token');
+    }
+    return this.http.put(`http://localhost:8080/todo/api/v1/items?id=${currentTask?.id}`, currentTask, {
+      headers: new HttpHeaders()
+        .append('Authorization', `Bearer ${token} `)
+    });
+  }
+
+  deleteTask(id: number | null): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const uname = sessionStorage.getItem('uname') as string;
+    if (token === null || uname === null) {
+      return throwError('Invalid Username or Token');
+    }
+    return this.http.delete(`http://localhost:8080/todo/api/v1/items?id=${id}`, {
+      headers: new HttpHeaders()
+        .append('Authorization', `Bearer ${token} `)
+    });
+  }
 }

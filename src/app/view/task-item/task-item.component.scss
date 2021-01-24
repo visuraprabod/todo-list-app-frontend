@@ -47,3 +47,33 @@
     }
   }
 }
+
+
+.priority-container{
+  ul{
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    background-color: white;
+    width: 150px;
+    border: 1px solid black;
+    display: none;
+    li{
+      padding: 10px;
+      &:hover{
+        background-color: lightcyan;
+      }
+    }
+  }
+  position: absolute;
+  right:90px
+}
+
+.priority{
+  &:hover{
+    background-color: blue;
+    ul{
+      display: block;
+    }
+  }
+}
