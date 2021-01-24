@@ -18,10 +18,39 @@
     color: white;
     border-style: none;
     border-radius: 5px;
-    background-color: blue;
-    &:disabled{
-      background-color: gray;
+
+    &.sign-up{
+      padding: 10px;
+      margin-top: 10px;
+      background-color: dodgerblue;
     }
 
+    &.sign-up:disabled{
+      background-color: lightgray;
+      cursor: default;
+    }
+  }
+}
+
+.form-group{
+  padding: 5px;
+
+  label,
+  input{
+    display: block;
+    width: 100%;
+    padding: 2px;
+    margin: 2px;
+  }
+
+  input{
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
+
+  input.ng-invalid.ng-dirty{
+    border: 1px solid red;
+    outline: none;
   }
 }

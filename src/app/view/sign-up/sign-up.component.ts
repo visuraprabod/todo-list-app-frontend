@@ -1,48 +1,67 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {AfterViewInit, Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../service/user.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit, DoCheck {
-
-  username = 'hello';
+export class SignUpComponent implements OnInit, DoCheck, AfterViewInit {
+  username = '';
   password = '';
   confirmPassword = '';
-  disabled = true;
+  @ViewChild('txtUsername')
+  txtUsername!: ElementRef;
+  // }
+  invalid = false;
 
-  constructor(private route: Router, private userService: UserService) {
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
+
   }
+
+  // isDisabled(): boolean {
+  //   return (this.username.trim().length === 0
+  //     || this.password.trim().length === 0
+  //     || this.confirmPassword.trim().length === 0
+  //     || this.password !== this.confirmPassword);
 
   createAccount(): void {
     this.userService.createAccount(this.username, this.password).subscribe(value => {
-      // console.log(value.status);
       if (value.status === 201) {
-        this.route.navigateByUrl('/sign-in');
+        this.router.navigateByUrl('/sign-in');
       } else {
-        console.log('Something Crazy');
+        console.log('Something crazy');
       }
     }, error => {
       if (error.status === 400) {
-        console.log('Bad request');
+        // console.log('Bad Request');
+        this.snackBar.open('Invalid details!', 'Dismiss');
       } else {
-        console.log(error.statusText);
+        this.snackBar.open('500 something went wrong!', 'Dismiss');
+
+        // console.log(error.statusText);
       }
     });
   }
 
-  isValidate(): boolean {
-    return (this.username.trim().length === 0
-      || this.password !== this.confirmPassword || this.password.trim().length === 0 || this.confirmPassword.trim().length === 0);
+  ngDoCheck(): void {
+    // console.log('This is working' + Math.random());
   }
 
-  ngDoCheck(): void {
-    console.log('this is working');
+  ngAfterViewInit(): void {
+    const nativeElement = this.txtUsername.nativeElement as HTMLInputElement;
+    nativeElement.addEventListener('input', () => {
+      this.userService.findUser(this.username).subscribe(value => {
+        this.invalid = true;
+      }, error => {
+        this.invalid = false;
+      });
+    });
+
   }
 }

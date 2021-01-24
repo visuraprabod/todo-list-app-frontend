@@ -1,23 +1,29 @@
 <div class="container">
   <h1>To-do list App</h1>
   <p>
-    Already a user?</p> <br>
-  <div class="form-group">
-    <label for="txt-username">Username</label>
-    <input #elm #usernameModel="ngModel" [(ngModel)]="username" id="txt-username" type="text" placeholder="Enter Username">
-    <div>{{elm.classList.toString()}}</div>
-  </div>
-  <div class="form-group">
-    <label for="txt-password">Enter password</label>
-    <input #passwordModel="ngModel" [(ngModel)]="password" id="txt-password"type="password" placeholder="Enter Password">
-  </div>
-  <div class="form-group">
-    <label for="txt-confirm-password">Retype password</label>
-    <input #confirmModel="ngModel" [(ngModel)]="confirmPassword" id="txt-confirm-password"type="password" placeholder="Enter Password again">
-  </div>
-  <div class="form-group">
-    <button [disabled]="isValidate()" (click)="createAccount()">Create Account</button>
-  </div>
-
+    Welcome newbie! <br>
+    Please enter following details to create a new account.
+  </p>
+  <form #frm="ngForm">
+    <div class="form-group">
+      <label for="txt-username">Username</label>
+      <input  #txtUsername name="txt-username" required [minlength]="3" pattern="[A-Za-z]+" [(ngModel)]="username" id="txt-username" type="text"
+             placeholder="Enter username">
+      <small *ngIf="invalid" [style.color]="'red'">User already exists</small>
+    </div>
+    <div class="form-group">
+      <label for="txt-password">Password</label>
+      <input #txtPassword name="txt-password" required [minlength]="6" [(ngModel)]="password" id="txt-password" type="password" placeholder="Enter password">
+    </div>
+    <div class="form-group">
+      <label for="txt-confirm-password">Confirm Password</label>
+      <input name="txt-confirm-password" required [minlength]="6" [(ngModel)]="confirmPassword" id="txt-confirm-password" type="password"
+             placeholder="Enter password again">
+      <small [style.color]="'red'" *ngIf="password.length > 0 && confirmPassword.length > 0 && password !== confirmPassword">Mismatched Password</small>
+    </div>
+    <div class="form-group">
+      <button [disabled]="!(frm.valid && (password === confirmPassword))" class="sign-up" (click)="createAccount()">Create Account</button>
+    </div>
+  </form>
+  <small>Already a User? <a routerLink="/sign-in">Sign In</a></small>
 </div>
-
